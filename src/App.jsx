@@ -11,6 +11,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Logo from "./assets/VIRACH_updated.png";
+import "./App.css";
+
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [position, setPosition] = useState("absolute");
@@ -41,16 +43,14 @@ function App() {
     <div className="min-h-screen bg-[#020B2D] text-white">
       {/* Navigation */}
       <nav
-        className={`${position} w-full z-[1000] transition-all duration-300 ${
-          isScrolled
-            ? "bg-gradient-to-r from-[#4BA3FF] to-[#8F7FFF] shadow-lg translate-y-0"
-            : "bg-[#020B2D]/5 translate-y-0 "
-        }`}
-      >
+  className={`${position} w-full z-[1000] transition-all duration-300 ${
+    isScrolled ? "bg-[#020B2D]" : ""
+  } flex justify-between items-center px-6 md:px-12`}
+>
         <div className="container mx-auto px-4 md:ml-7 md:px-0 py-2 flex justify-between items-center">
           <a
             href="#home"
-            className="flex items-center "
+            className="flex items-center scroll-smooth"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -60,7 +60,7 @@ function App() {
               <img
                 src={Logo}
                 alt="Virach Logo"
-                className="h-full w-auto object-contain mix-blend-screen hover:opacity-90 transition-opacity"
+                className="h-full w-auto object-contain"
               />
             </div>
           </a>
@@ -87,31 +87,19 @@ function App() {
           <div className="hidden md:flex gap-8 items-center">
             <a
               href="#home"
-              className={`font-medium transition-colors ${
-                isScrolled
-                  ? "text-blue-600 hover:text-blue-800"
-                  : "text-white hover:text-[#4BA3FF]"
-              }`}
+              className={`font-medium transition-colors text-white scroll-smooth`}
             >
               Home
             </a>
             <a
               href="#services"
-              className={`font-medium transition-colors ${
-                isScrolled
-                  ? "text-blue-600 hover:text-blue-800"
-                  : "text-white hover:text-[#4BA3FF]"
-              }`}
+              className={`font-medium transition-colors text-white scroll-smooth`}
             >
               Services
             </a>
             <a
               href="#about"
-              className={`font-medium transition-colors ${
-                isScrolled
-                  ? "text-blue-600 hover:text-blue-800"
-                  : "text-white hover:text-[#4BA3FF]"
-              }`}
+              className={`font-medium transition-colors text-white scroll-smooth`}
             >
               About
             </a>
@@ -164,7 +152,7 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Home Section */}
       <section
         id="home"
         className="pt-24 md:pt-32 pb-16 md:pb-29 relative overflow-hidden min-h-screen flex flex-col md:flex-row items-center text-left px-4 md:px-10 mt-0"
@@ -230,7 +218,7 @@ function App() {
       {/* Services Section */}
       <section
         id="services"
-        className={`py-5 bg-gray-50 relative transition-all duration-500 ease-in-out${
+        className={`py-5 bg-gray-50 relative transition-all duration-500 ease-in-out scroll-mt-35${
           wave ? " mt-[-5%] z-[100] transform translate-y-5" : ""
         }`}
       >
@@ -240,18 +228,21 @@ function App() {
             title="Web Development"
             description="Custom web applications built with modern technologies."
             imageUrl="https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&w=500&q=80"
+            delay={0.2}
           />
           <ServiceCard
             icon={Smartphone}
             title="Mobile Apps"
             description="Native and cross-platform mobile applications."
             imageUrl="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=500&q=80"
+            delay={0.4}
           />
           <ServiceCard
             icon={Globe}
             title="Digital Solutions"
             description="End-to-end digital transformation services."
             imageUrl="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80"
+            delay={0.6}
           />
         </div>
       </section>
@@ -323,8 +314,14 @@ function App() {
   );
 }
 
-const ServiceCard = ({ icon: Icon, title, description, imageUrl }) => (
-  <div className="bg-gray-100 p-6 md:p-8 rounded-2xl group hover:bg-gray-200 transition-colors">
+const ServiceCard = ({ icon: Icon, title, description, imageUrl, delay }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }} // Start hidden and move up
+    whileInView={{ opacity: 1, y: 0 }} // Fade in and move up
+    transition={{ duration: 0.6, delay }} // Apply delay for staggered effect
+    whileHover={{ scale: 1.05 }} // Slight zoom on hover
+    className="bg-gray-100 p-6 md:p-8 rounded-2xl group hover:bg-gray-200 transition-colors"
+  >
     <img
       src={imageUrl}
       alt={title}
@@ -335,9 +332,8 @@ const ServiceCard = ({ icon: Icon, title, description, imageUrl }) => (
       {title}
     </h3>
     <p className="text-gray-700 text-sm md:text-base">{description}</p>
-  </div>
+  </motion.div>
 );
-
 const ContactCard = ({ icon: Icon, title, detail, link }) => (
   <a
     href={link}
