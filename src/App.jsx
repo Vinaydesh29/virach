@@ -43,11 +43,11 @@ function App() {
     <div className="min-h-screen bg-[#020B2D] text-white">
       {/* Navigation */}
       <nav
-  className={`${position} w-full z-[1000] transition-all duration-300 ${
-    isScrolled ? "bg-[#020B2D]" : ""
-  } flex justify-between items-center px-6 md:px-12`}
->
-        <div className="container mx-auto px-4 md:ml-7 md:px-0 py-2 flex justify-between items-center">
+        className={`${position} w-full z-[1000] transition-all duration-300 ${
+          isScrolled ? "bg-[#020B2D]" : ""
+        } flex justify-center px-4 md:px-6`}
+      >
+        <div className="w-full max-w-[1440px] flex justify-between items-center">
           <a
             href="#home"
             className="flex items-center scroll-smooth"
@@ -84,22 +84,22 @@ function App() {
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-8 items-center">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-10 flex-nowrap">
             <a
               href="#home"
-              className={`font-medium transition-colors text-white scroll-smooth`}
+              className="font-medium transition-colors text-white scroll-smooth text-base md:text-lg"
             >
               Home
             </a>
             <a
               href="#services"
-              className={`font-medium transition-colors text-white scroll-smooth`}
+              className="font-medium transition-colors text-white scroll-smooth text-base md:text-lg"
             >
               Services
             </a>
             <a
               href="#about"
-              className={`font-medium transition-colors text-white scroll-smooth`}
+              className="font-medium transition-colors text-white scroll-smooth text-base md:text-lg"
             >
               About
             </a>
